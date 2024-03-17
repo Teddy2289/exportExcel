@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<div class="d-flex flex-row justify-content-between align-items-center gap-1 mx-auto mb-2">
+			<h6 class="text-secondary">Modifier le numero de fiche :
+				<span class="text-primary h3">{{ data.numeroFiche }}</span>
+			</h6>
+			<a href="{{ path('home') }}" type="button" class="btn btn-outline-secondary btn-sm">retour</a>
+		</div>
+		<hr>
+		<div class="col-md-8 border mx-auto p-2 shadow mb-5 bg-body rounded">
+			{{ form_start(form) }}
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.compteAffaire) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.compteEvenement) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.compteDernierEvenement) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.numeroFiche) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.civilite) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.proprietaireVehicule) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.nom) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.prenom) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.numeroEtNomVoie) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.complementAdresse1) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.codePostal) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.ville) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.telephoneDomicile) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.telephonePortable) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.telephoneJob) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.dateDernierEvenement) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.marque) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.modele) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.version) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.vin) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.immatriculation) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.typeProspect) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.kilometrage) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.energie) }}
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.emailP1) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.dateMiseCirculation) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.dateAchat) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.vendeurVN) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.vendeurVo) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.commentaireFacture) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.typeVNVO) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.numeroDossierVNVO) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.intermadiareVenteVN) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.dateEvenement) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.origineEvenement) }}
+				</div>
+			</div>
+
+
+			{{ form_end(form) }}
+
+
+		</div>
+	</div>
+{% endblock %}
