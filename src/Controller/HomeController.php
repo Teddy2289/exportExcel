@@ -22,7 +22,7 @@ class HomeController extends AbstractController
         $data = $repository->findAll();
         $form = $this->createFormBuilder()
             ->add('file', FileType::class)
-            ->add('save', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-primary']])
+            ->add('save', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
             ->getForm();
         $form->handleRequest($request);
         $errorMessage = null;
@@ -44,6 +44,16 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * Imports data from an Excel file into the database.
+     *
+     * @param mixed                  $file    The file to import
+     * @param EntityManagerInterface $manager The entity manager
+     *
+     * @return Some_Return_Value
+     *
+     * @throws Some_Exception_Class description of exception
+     */
     private function importExcel($file, EntityManagerInterface $manager)
     {
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
@@ -51,6 +61,7 @@ class HomeController extends AbstractController
         $row_limit = $sheet->getHighestDataRow();
         $row_range = range(2, $row_limit);
         $valid = 0;
+        $insertedDataCount = 0;
 
         $row_range_start = range(1, 1);
         $row = $sheet->toArray();
@@ -102,6 +113,13 @@ class HomeController extends AbstractController
                     && $sheet->getCell('AI'.$start)->getValue() == 'Origine évènement (Veh)'
                 ) {
                     foreach ($row_range as $row) {
+                        $existingEntity = $manager->getRepository(ExcelData::class)->findOneBy(['numeroFiche' => $sheet->getCell('D'.$row)->getValue()]);
+
+                        if ($existingEntity) {
+                            $existingNumFcihe[] = $sheet->getCell('D'.$row)->getValue();
+                            continue;
+                        }
+
                         $entity = new ExcelData();
 
                         $dateMiseCirculationValue = $sheet->getCell('Q'.$row)->getValue();
@@ -166,46 +184,21 @@ class HomeController extends AbstractController
                         $entity->setIntermadiareVenteVN((string) $sheet->getCell('AG'.$row)->getValue());
                         $entity->setDateEvenement($dateEvenement);
                         $entity->setOrigineEvenement((string) $sheet->getCell('AI'.$row)->getValue());
-
-                        $tempEntities[] = $entity;
+                        $manager->persist($entity);
+                        ++$insertedDataCount;
                     }
                 }
             }
         }
-        // Vérifier les doublons après avoir extrait toutes les données
-        $doublons = $this->detectDoublons($tempEntities, $manager);
-        // Si des doublons sont trouvés, déclencher une exception
-        if (!empty($doublons)) {
-            $errorMessage = implode(', ', $doublons);
-            $this->addFlash('danger', 'Les données suivantes sont en double dans la base de données: '.$errorMessage);
-        }
-        // Si aucun doublon n'est trouvé, persister les entités dans la base de données
-        foreach ($tempEntities as $entity) {
-            $manager->persist($entity);
-        }
         $manager->flush();
-    }
-
-    private function detectDoublons(array $entities, EntityManagerInterface $manager): array
-    {
-        $doublons = [];
-        $emailsChecked = [];
-        foreach ($entities as $entity) {
-            // Vérifier si l'email est vide ou a déjà été vérifié
-            if ($entity->getEmailP1() === '' || in_array($entity->getEmailP1(), $emailsChecked)) {
-                continue;
-            }
-            // Vérifier si l'email existe déjà dans la base de données
-            $existingEntity = $manager->getRepository(ExcelData::class)->findOneBy(['emailP1' => $entity->getEmailP1()]);
-            // Si l'entité existe déjà, ajouter l'email à la liste des doublons
-            if ($existingEntity) {
-                $doublons[] = 'Email: '.$entity->getEmailP1();
-            }
-            // Marquer l'email comme vérifié
-            $emailsChecked[] = $entity->getEmailP1();
+        if (!empty($existingNumFcihe)) {
+            $this->addFlash('warning', 'Les données suivantes ont été ignorées car les numero de fiches existe deja dans la base de données : '.implode(', ', $existingNumFcihe));
         }
-
-        return $doublons;
+        if ($insertedDataCount > 0) {
+            $this->addFlash('success', $insertedDataCount.' entrées ont été ajoutées avec succès à la base de données.');
+        } else {
+            $this->addFlash('info', 'Aucune nouvelle donnée n\'a été ajoutée à la base de données.');
+        }
     }
 
     #[Route('/create', name: 'create')]
@@ -216,15 +209,11 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer l'email saisi dans le formulaire
             $submittedEmail = $form->get('emailP1')->getData();
-            // Vérifier si un enregistrement avec cet email existe déjà dans la base de données
             $existingData = $manager->getRepository(ExcelData::class)->findOneBy(['emailP1' => $submittedEmail]);
             if ($existingData) {
-                // Si un enregistrement avec cet email existe déjà, afficher un message d'erreur
                 $this->addFlash('danger', 'Un enregistrement avec cet email existe déjà dans la base de données.');
             } else {
-                // Si l'email n'existe pas, enregistrer les données
                 $manager->persist($data);
                 $manager->flush();
                 $this->addFlash('success', 'Le client a été bien enregistré.');
