@@ -28,7 +28,7 @@
 						<table id="myTable" class="table table-bordered" style="width:100%">
 							<thead>
 								<tr>
-									<th>Prénom</th>
+									<th>Nom</th>
 									<th>Email</th>
 									<th>Compte Affaire</th>
 									<th>Numéro de fiche</th>
@@ -45,15 +45,15 @@
 										<td>{{ row.numeroFiche }}</td>
 										<td>{{ row.dateEvenement ? row.dateEvenement.format('d/m/Y') : '' }}</td>
 										<td class="d-flex gap-1 align-items-center justify-content-center">
-											<a href="{{ path('edit',{'id':row.id}) }}" class="btn btn-primary btn-sm">
+											<a href="{{ path('edit',{'id':row.id}) }}" class="btn btn-outline-primary btn-sm">
 												<i class="fa-solid fa-pen"></i>
 											</a>
-											<a href="{{ path('show',{'id':row.id}) }}" class="btn btn-secondary btn-sm">
+											<a href="{{ path('show',{'id':row.id}) }}" class="btn btn-outline-secondary btn-sm">
 												<i class="fa-solid fa-circle-info"></i>
 											</a>
 											<form action="{{ path('delete',{'id':row.id}) }}" method="post">
 												<input type="hidden" name="_method" value="DELETE">
-												<button class="btn btn-danger btn-sm">
+												<button class="btn btn-outline-danger btn-sm">
 													<i class="fa-solid fa-trash"></i>
 												</button>
 											</form>
@@ -64,7 +64,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th>Prénom</th>
+									<th>Nom</th>
 									<th>Email</th>
 									<th>Compte Affaire</th>
 									<th>Numéro de fiche</th>

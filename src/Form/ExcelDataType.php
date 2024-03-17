@@ -19,60 +19,60 @@ class ExcelDataType extends AbstractType
     {
         $builder
             ->add('compteAffaire', TextType::class, [
-                'label' => 'Compte Affaire'
+                'label' => 'Compte Affaire',
             ])
             ->add('compteEvenement', TextType::class, [
-                'label' => 'Compte évènement (Veh)'
+                'label' => 'Compte évènement (Veh)',
             ])
             ->add('compteDernierEvenement', TextType::class, [
-                'label' => 'Compte dernier évènement (Veh)'
+                'label' => 'Compte dernier évènement (Veh)',
             ])
             ->add('numeroFiche', IntegerType::class, [
-                'label' => 'Numéro de fiche'
+                'label' => 'Numéro de fiche',
             ])
             ->add('civilite', TextType::class, [
                 'label' => 'Civilité',
-                'required'=>false
+                'required' => false,
             ])
             ->add('proprietaireVehicule', TextType::class, [
                 'label' => 'Propriétaire actuel du véhicule',
-                'required' => false
+                'required' => false,
             ])
             ->add('nom', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
             ])
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom',
-                'required'=>false
+                'required' => false,
             ])
             ->add('numeroEtNomVoie', TextType::class, [
                 'label' => 'N° et Nom de la voie',
-                'required'=>false
+                'required' => false,
             ])
             ->add('complementAdresse1', TextType::class, [
                 'label' => 'Complément adresse 1',
-                'required'=>false
+                'required' => false,
             ])
             ->add('codePostal', IntegerType::class, [
-                'label' => 'Code postal'
+                'label' => 'Code postal',
             ])
             ->add('ville', TextType::class, [
-                'label' => 'Ville'
+                'label' => 'Ville',
             ])
             ->add('telephoneDomicile', IntegerType::class, [
                 'label' => 'Téléphone domicile',
-                'required'=>false
+                'required' => false,
             ])
             ->add('telephonePortable', IntegerType::class, [
-                'label' => 'Téléphone portable'
+                'label' => 'Téléphone portable',
             ])
             ->add('telephoneJob', IntegerType::class, [
                 'label' => 'Téléphone job',
-                'required'=>false
+                'required' => false,
             ])
             ->add('emailP1', EmailType::class, [
                 'label' => 'Email',
-                'required'=>false
+                'required' => false,
             ])
             ->add('dateMiseCirculation', DateType::class, [
                 'widget' => 'single_text',
@@ -80,72 +80,72 @@ class ExcelDataType extends AbstractType
             ])
             ->add('dateAchat', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date achat (date de livraison)'
+                'label' => 'Date achat (date de livraison)',
             ])
             ->add('dateDernierEvenement', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date dernier évènement (Veh)'
+                'label' => 'Date dernier évènement (Veh)',
             ])
             ->add('marque', TextType::class, [
-                'label' => 'Libellé marque (Mrq)'
+                'label' => 'Libellé marque (Mrq)',
             ])
             ->add('modele', TextType::class, [
                 'label' => 'Libellé modèle (Mod)',
-                'required'=>false
+                'required' => false,
             ])
             ->add('version', TextType::class, [
                 'label' => 'Version',
-                'required'=>false
+                'required' => false,
             ])
             ->add('vin', TextType::class, [
-                'label' => 'VIN'
+                'label' => 'VIN',
             ])
             ->add('immatriculation', TextType::class, [
-                'label' => 'Immatriculation'
+                'label' => 'Immatriculation',
             ])
             ->add('typeProspect', ChoiceType::class, [
                 'label' => 'Type de prospect',
                 'choices' => [
                     'SOCIETE' => 'SOCIETE',
-                    'PARTICULIER' => 'PARTICULIER'
+                    'PARTICULIER' => 'PARTICULIER',
                 ],
             ])
             ->add('kilometrage', TextType::class, [
-                'label' => 'Kilométrage'
+                'label' => 'Kilométrage',
             ])
             ->add('energie', TextType::class, [
-                'label' => 'Libellé énergie (Energ)'
+                'label' => 'Libellé énergie (Energ)',
             ])
             ->add('vendeurVN', TextType::class, [
                 'label' => 'Vendeur VN',
-                'required'=>false
+                'required' => false,
             ])
             ->add('vendeurVo', TextType::class, [
                 'label' => 'Vendeur VO',
-                'required'=>false
+                'required' => false,
             ])
             ->add('commentaireFacture', TextType::class, [
                 'label' => 'Commentaire de facturation (Veh)',
-                'required'=>false
+                'required' => false,
             ])
             ->add('typeVNVO', ChoiceType::class, [
                 'label' => 'Type VN VO',
                 'choices' => [
                     'VN' => 'VN',
-                    'VO' => 'VO'
-                ]
+                    'VO' => 'VO',
+                ],
             ])
             ->add('numeroDossierVNVO', TextType::class, [
                 'label' => 'Numéro de dossier VN VO',
-                'required'=>false
+                'required' => false,
             ])
             ->add('intermadiareVenteVN', TextType::class, [
                 'label' => 'Intermediaire de vente VN',
-                'required'=>false
+                'required' => false,
             ])
             ->add('dateEvenement', DateType::class, [
                 'widget' => 'single_text',
-                'label' => 'Date évènement (Veh)'
+                'label' => 'Date évènement (Veh)',
             ])
             ->add('origineEvenement', ChoiceType::class, [
                 'label' => 'Origine évènement (Veh)',
@@ -153,10 +153,13 @@ class ExcelDataType extends AbstractType
                     'Atelier' => 'Atelier',
                     'Véhicule neuf' => 'Véhicule neuf',
                     'Véhicule d\'occasion' => 'Véhicule d\'occasion',
-                    'Magasin'=>'Magasin'
-                ]
+                    'Magasin' => 'Magasin',
+                ],
             ])
-            ->add('enregistrer', SubmitType::class);
+            ->add('enregistrer', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => ['class' => 'btn-sm btn-outline-primary'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
