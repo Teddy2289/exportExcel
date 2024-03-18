@@ -21,28 +21,22 @@ class ExcelDataRepository extends ServiceEntityRepository
         parent::__construct($registry, ExcelData::class);
     }
 
-//    /**
-//     * @return ExcelData[] Returns an array of ExcelData objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?ExcelData
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Récupère les données ExcelData filtrées par plage de dates.
+     *
+     * @param \DateTimeInterface $startDate Date de début de la plage
+     * @param \DateTimeInterface $endDate   Date de fin de la plage
+     *
+     * @return ExcelData[] Les données ExcelData filtrées
+     */
+    public function findByDateRange(\DateTimeInterface $startDate, \DateTimeInterface $endDate): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.dateEvenement >= :start_date')
+            ->andWhere('e.dateDernierEvenement <= :end_date')
+            ->setParameter('start_date', $startDate)
+            ->setParameter('end_date', $endDate)
+            ->getQuery()
+            ->getResult();
+    }
 }

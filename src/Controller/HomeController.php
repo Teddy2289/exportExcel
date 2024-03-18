@@ -7,6 +7,7 @@ use App\Form\ExcelDataType;
 use App\Repository\ExcelDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,13 +20,40 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(Request $request, EntityManagerInterface $manager, ExcelDataRepository $repository): Response
     {
-        $data = $repository->findAll();
         $form = $this->createFormBuilder()
             ->add('file', FileType::class)
-            ->add('save', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
+            ->add('upload', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
             ->getForm();
+
         $form->handleRequest($request);
+
+        $dateFilterForm = $this->createFormBuilder()
+            ->add('dateEvenement', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date évènement (Veh)',
+            ])
+            ->add('dateDernierEvenement', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date dernier évènement (Veh)',
+            ])
+            ->add('filter', SubmitType::class, ['label' => 'Filtrer', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
+            ->getForm();
+
+        $dateFilterForm->handleRequest($request);
+
         $errorMessage = null;
+
+        $data = [];
+
+        if ($dateFilterForm->isSubmitted() && $dateFilterForm->isValid()) {
+            $dateEvenement = $dateFilterForm->get('dateEvenement')->getData();
+            $dateDernierEvenement = $dateFilterForm->get('dateDernierEvenement')->getData();
+
+            $data = $repository->findByDateRange($dateEvenement, $dateDernierEvenement);
+        } else {
+            $data = $repository->findAll();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form->get('file')->getData();
             try {
@@ -38,7 +66,8 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
+            'dateFilterForm' => $dateFilterForm->createView(),
             'data' => $data,
             'errorMessage' => $errorMessage,
         ]);
@@ -192,7 +221,7 @@ class HomeController extends AbstractController
         }
         $manager->flush();
         if (!empty($existingNumFcihe)) {
-            $this->addFlash('warning', 'Les données suivantes ont été ignorées car les numero de fiches existe deja dans la base de données : '.implode(', ', $existingNumFcihe));
+            $this->addFlash('warning', 'Les données suivantes ont été ignorées car les numero de fiches éxiste déjà dans la base de données : '.implode(', ', $existingNumFcihe));
         }
         if ($insertedDataCount > 0) {
             $this->addFlash('success', $insertedDataCount.' entrées ont été ajoutées avec succès à la base de données.');
@@ -212,7 +241,7 @@ class HomeController extends AbstractController
             $submittedEmail = $form->get('emailP1')->getData();
             $existingData = $manager->getRepository(ExcelData::class)->findOneBy(['emailP1' => $submittedEmail]);
             if ($existingData) {
-                $this->addFlash('danger', 'Un enregistrement avec cet email existe déjà dans la base de données.');
+                $this->addFlash('danger', 'Un enregistrement avec cet email éxiste déjà dans la base de données.');
             } else {
                 $manager->persist($data);
                 $manager->flush();
@@ -236,7 +265,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($data);
             $manager->flush();
-            $this->addFlash('success', 'Le client a ete bien mis a jours.');
+            $this->addFlash('success', 'Le client a été bien mis a jours.');
 
             return $this->redirectToRoute('home');
         }
@@ -262,7 +291,7 @@ class HomeController extends AbstractController
     {
         $manager->remove($data);
         $manager->flush();
-        $this->addFlash('success', 'Le client a ete bien supprimer');
+        $this->addFlash('success', 'Le client a été bien supprimer');
 
         return $this->redirectToRoute('home');
     }
