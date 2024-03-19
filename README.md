@@ -11,7 +11,7 @@ Prérequis :
 
 -Symfony 7
 
--Base de données MySQL avec le dump de la base dans le répertoire "clienttest.sql"
+-Base de données MySQL est on cree un base vide nome "excelDB" et ensuite on import "clienttest.sql" avec le dump de la base dans le répertoire
 
 -Bootstrap 5
 
