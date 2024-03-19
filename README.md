@@ -3,6 +3,8 @@ Importation de fichiers Excel avec Symfony et PhpSpreadsheet
 
  -Mise en place de l'importation de fichiers Excel avec Symfony en utilisant la bibliothèque PhpSpreadsheet (https://phpspreadsheet.readthedocs.io).
 
+Lorsque nous importons un fichier depuis l'écran d'accueil, nous effectuons une vérification basée sur le numéro de fiche, car chaque numéro de fiche doit être unique selon la logique suivie. Ensuite, nous vérifions si le numéro de fiche est vide ou nul, et s'il existe déjà, nous le ignorons pour éviter de l'insérer à nouveau dans la base de données
+
 Prérequis :
 
 -PHP 8.0 | 8.2
