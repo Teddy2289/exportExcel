@@ -7,6 +7,7 @@ use App\Form\ExcelDataType;
 use App\Repository\ExcelDataRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,19 +17,46 @@ use Symfony\Component\Routing\Requirement\Requirement;
 
 class HomeController extends AbstractController
 {
+    /**
+     * A description of the entire PHP function.
+     *
+     * @param Request                $request    description
+     * @param EntityManagerInterface $manager    description
+     * @param ExcelDataRepository    $repository description
+     *
+     * @throws \Exception description of exception
+     */
     #[Route('/', name: 'home')]
     public function index(Request $request, EntityManagerInterface $manager, ExcelDataRepository $repository): Response
     {
-        $data = $repository->findAll();
         $form = $this->createFormBuilder()
             ->add('file', FileType::class)
-            ->add('save', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
+            ->add('upload', SubmitType::class, ['label' => 'Upload', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
             ->getForm();
+
         $form->handleRequest($request);
+        $dateFilterForm = $this->createFormDateFilter();
+        $dateFilterForm->handleRequest($request);
         $errorMessage = null;
+
+        $data = [];
+
+        // Si le filtre est soumis et valide, on récupère les données entre l'intervalle des 2 dates
+        if ($dateFilterForm->isSubmitted() && $dateFilterForm->isValid()) {
+            $dateEvenement = $dateFilterForm->get('dateEvenement')->getData();
+            $dateDernierEvenement = $dateFilterForm->get('dateDernierEvenement')->getData();
+
+            $data = $repository->findByDateRange($dateEvenement, $dateDernierEvenement);
+        } else {
+            // si le filtre n'est pas soumis, on récupère toutes les données
+            $data = $repository->findAll();
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
+            // On récupère le fichier
             $file = $form->get('file')->getData();
             try {
+                // On importe les données
                 $this->importExcel($file, $manager);
 
                 return $this->redirectToRoute('home');
@@ -38,10 +66,26 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/index.html.twig', [
-            'form' => $form,
+            'form' => $form->createView(),
+            'dateFilterForm' => $dateFilterForm->createView(),
             'data' => $data,
             'errorMessage' => $errorMessage,
         ]);
+    }
+
+    private function createFormDateFilter()
+    {
+        return $this->createFormBuilder()
+            ->add('dateEvenement', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date évènement (Veh)',
+            ])
+            ->add('dateDernierEvenement', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date dernier évènement (Veh)',
+            ])
+            ->add('filter', SubmitType::class, ['label' => 'Filtrer', 'attr' => ['class' => 'btn-sm btn-outline-primary']])
+            ->getForm();
     }
 
     /**
@@ -56,16 +100,17 @@ class HomeController extends AbstractController
      */
     private function importExcel($file, EntityManagerInterface $manager)
     {
+        // On récupère le fichier envoyer
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $sheet = $spreadsheet->getActiveSheet();
         $row_limit = $sheet->getHighestDataRow();
         $row_range = range(2, $row_limit);
         $valid = 0;
         $insertedDataCount = 0;
-
+        // On récupère les colonnes
         $row_range_start = range(1, 1);
         $row = $sheet->toArray();
-
+        // On récupère les colonnes
         foreach ($row as $i => $t) {
             if ($i == 0) {
                 foreach ($t as $iter => $column_value) {
@@ -75,7 +120,9 @@ class HomeController extends AbstractController
                 }
             }
         }
+        // On vérifie les colonnes si elles correspondent aux colonnes attendues depuis l'excel
         if ($valid == 35) {
+            // on récupère les colonnes et on les met dans un tableau
             foreach ($row_range_start as $start) {
                 if ($sheet->getCell('A'.$start)->getValue() == 'Compte Affaire'
                     && $sheet->getCell('B'.$start)->getValue() == 'Compte évènement (Veh)'
@@ -113,34 +160,36 @@ class HomeController extends AbstractController
                     && $sheet->getCell('AI'.$start)->getValue() == 'Origine évènement (Veh)'
                 ) {
                     foreach ($row_range as $row) {
+                        // On vérifie si le numéro de fiche existe
                         $existingEntity = $manager->getRepository(ExcelData::class)->findOneBy(['numeroFiche' => $sheet->getCell('D'.$row)->getValue()]);
 
+                        // Si le numéro de fiche existe, on ne l'ajoute pas
                         if ($existingEntity) {
-                            $existingNumFcihe[] = $sheet->getCell('D'.$row)->getValue();
+                            $existingNumFiche[] = $sheet->getCell('D'.$row)->getValue();
                             continue;
                         }
 
                         $entity = new ExcelData();
-
+                        // Convertir le numéro de série de date Excel en un objet DateTime
                         $dateMiseCirculationValue = $sheet->getCell('Q'.$row)->getValue();
                         if ($dateMiseCirculationValue !== null) {
                             $dateMiseCirculation = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateMiseCirculationValue);
                         } else {
                             $dateMiseCirculation = null;
                         }
-
+                        // Convertir le numéro de série de date Excel en un objet DateTime
                         $dateAchatValue = $sheet->getCell('R'.$row)->getValue();
                         if ($dateAchatValue !== null) {
                             $dateAchat = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateAchatValue);
                         } else {
                             $dateAchat = null;
                         }
-
+                        // Convertir le numéro de série de date Excel en un objet DateTime
                         $dernierDateValue = $sheet->getCell('S'.$row)->getValue();
                         if ($dernierDateValue !== null) {
                             $dateDernierEvenement = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dernierDateValue);
                         }
-
+                        // Convertir le numéro de série de date Excel en un objet DateTime
                         $dateEvenementValue = $sheet->getCell('AH'.$row)->getValue();
                         if ($dateEvenementValue !== null) {
                             $dateEvenement = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateEvenementValue);
@@ -184,16 +233,20 @@ class HomeController extends AbstractController
                         $entity->setIntermadiareVenteVN((string) $sheet->getCell('AG'.$row)->getValue());
                         $entity->setDateEvenement($dateEvenement);
                         $entity->setOrigineEvenement((string) $sheet->getCell('AI'.$row)->getValue());
+                        // on persiste l'entité dans la base de données
                         $manager->persist($entity);
+                        // on incremente le compteur de nouvelles donnée
                         ++$insertedDataCount;
                     }
                 }
             }
         }
         $manager->flush();
-        if (!empty($existingNumFcihe)) {
-            $this->addFlash('warning', 'Les données suivantes ont été ignorées car les numero de fiches existe deja dans la base de données : '.implode(', ', $existingNumFcihe));
+        // si la liste des numéros de fiches existant est non vide, on affiche un message d'avertissement
+        if (!empty($existingNumFiche)) {
+            $this->addFlash('warning', 'Les données suivantes ont été ignorées car les numero de fiches éxiste déjà dans la base de données : '.implode(', ', $existingNumFiche));
         }
+        // on verifie si au moins une nouvelle donnée a été ajoutée à la base de données
         if ($insertedDataCount > 0) {
             $this->addFlash('success', $insertedDataCount.' entrées ont été ajoutées avec succès à la base de données.');
         } else {
@@ -212,7 +265,7 @@ class HomeController extends AbstractController
             $submittedEmail = $form->get('emailP1')->getData();
             $existingData = $manager->getRepository(ExcelData::class)->findOneBy(['emailP1' => $submittedEmail]);
             if ($existingData) {
-                $this->addFlash('danger', 'Un enregistrement avec cet email existe déjà dans la base de données.');
+                $this->addFlash('danger', 'Un enregistrement avec cet email éxiste déjà dans la base de données.');
             } else {
                 $manager->persist($data);
                 $manager->flush();
@@ -236,7 +289,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($data);
             $manager->flush();
-            $this->addFlash('success', 'Le client a ete bien mis a jours.');
+            $this->addFlash('success', 'Le client a été bien mis a jours.');
 
             return $this->redirectToRoute('home');
         }
@@ -262,7 +315,7 @@ class HomeController extends AbstractController
     {
         $manager->remove($data);
         $manager->flush();
-        $this->addFlash('success', 'Le client a ete bien supprimer');
+        $this->addFlash('success', 'Le client a été bien supprimer');
 
         return $this->redirectToRoute('home');
     }

@@ -4,133 +4,124 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		{% if errorMessage is not null %}
-			<div class="alert alert-danger" role="alert">
-				{{ errorMessage }}
-			</div>
-		{% endif %}
-		<div class="d-flex flex-row  justify-content-between align-items-center gap-1 mx-auto">
-			<h6 class="text-secondary">Liste des clients</h6>
-			<div>
-				<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-primary btn-sm">
-					import Excel
-				</button>
-				<a href="{{ path('create') }}" type="button" class="btn btn-outline-secondary btn-sm">Nouveau</a>
-			</div>
-		</div>
-		<hr>
-		<div class="container-fluid pt-4">
-			<div class="border mx-auto p-2 shadow mb-5 bg-body rounded">
-				<section class="mb-4">
-					<div class="card-header text-right py-3"></div>
-					<div class="card-body">
-						<table id="myTable" class="table table-bordered" style="width:100%">
-							<thead>
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-									<th>Compte Affaire</th>
-									<th>Numéro de fiche</th>
-									<th>Date évènement</th>
-									<th colspan="1"></th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for row in data %}
-									<tr>
-										<td>{{ row.nom }}</td>
-										<td>{{ row.emailP1 }}</td>
-										<td>{{ row.compteAffaire }}</td>
-										<td>{{ row.numeroFiche }}</td>
-										<td>{{ row.dateEvenement ? row.dateEvenement.format('d/m/Y') : '' }}</td>
-										<td class="d-flex gap-1 align-items-center justify-content-center">
-											<a href="{{ path('edit',{'id':row.id}) }}" class="btn btn-outline-primary btn-sm">
-												<i class="fa-solid fa-pen"></i>
-											</a>
-											<a href="{{ path('show',{'id':row.id}) }}" class="btn btn-outline-secondary btn-sm">
-												<i class="fa-solid fa-circle-info"></i>
-											</a>
-											<form action="{{ path('delete',{'id':row.id}) }}" method="post">
-												<input type="hidden" name="_method" value="DELETE">
-												<button class="btn btn-outline-danger btn-sm">
-													<i class="fa-solid fa-trash"></i>
-												</button>
-											</form>
-										</td>
-									</tr>
-								{% endfor %}
+    <div class="container-fluid">
+        {% if errorMessage is not null %}
+            <div class="alert alert-danger" role="alert">
+                {{ errorMessage }}
+            </div>
+        {% endif %}
+        <div class="d-flex flex-row  justify-content-between align-items-center gap-1 mx-auto">
+            <h6 class="text-secondary">Liste des clients</h6>
+            <div>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="btn btn-outline-primary btn-sm">
+                    import Excel
+                </button>
+                <a href="{{ path('create') }}" type="button" class="btn btn-outline-secondary btn-sm">Nouveau</a>
+            </div>
+        </div>
+        <hr>
+        <div class="container-fluid pt-4 mx-auto">
+            <div class="border mx-auto p-2 shadow mb-5 bg-body rounded d-flex justify-content-evenly">
+                <div class="col-md-12 mx-auto">
+                    {{ form_start(dateFilterForm) }}
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-4">
+                            {{ form_row(dateFilterForm.dateEvenement) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row(dateFilterForm.dateDernierEvenement) }}
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center gap-1 mt-4">
+                            {{ form_row(dateFilterForm.filter) }}
+                            <a class="mb-3 btn btn-outline-danger btn-sm" href="{{ path('home') }}">Annuler</a>
+                        </div>
+                    </div>
+                    {{ form_end(dateFilterForm) }}
+                </div>
+            </div>
+        </div>
+        <div class="border mx-auto p-2 shadow mb-5 bg-body rounded">
+            <section class="mb-4">
+                <div class="card-header text-right py-3"></div>
+                <div class="card-body">
+                    <table id="myTable" class="table table-striped table-sm table-bordered" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Compte Affaire</th>
+                            <th>Numéro de fiche</th>
+                            <th>Date évènement</th>
+                            <th>Date derniere évènement</th>
+                            <th colspan="1"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in data %}
+                            <tr>
+                                <td>{{ row.nom }}</td>
+                                <td>{{ row.emailP1 }}</td>
+                                <td>{{ row.compteAffaire }}</td>
+                                <td>{{ row.numeroFiche }}</td>
+                                <td>{{ row.dateEvenement ? row.dateEvenement.format('d/m/Y') : '' }}</td>
+                                <td>{{ row.dateDernierEvenement ? row.dateDernierEvenement.format('d/m/Y') : '' }}</td>
+                                <td class="d-flex gap-1 align-items-center justify-content-center">
+                                    <a href="{{ path('edit',{'id':row.id}) }}" class="btn btn-outline-primary btn-sm">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                                    <a href="{{ path('show',{'id':row.id}) }}" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </a>
+                                    <form action="{{ path('delete',{'id':row.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn btn-outline-danger btn-sm">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-									<th>Compte Affaire</th>
-									<th>Numéro de fiche</th>
-									<th>Date évènement</th>
-									<th colspan="1"></th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-				</section>
-				<div/>
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-md">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Importation excel</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						{{ form_start(form, {'attr': {'class': 'form-horizontal', 'enctype': 'multipart/form-data'}}) }}
-						{{ form_errors(form) }}
-						{{ form_end(form) }}
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">annuler</button>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Compte Affaire</th>
+                            <th>Numéro de fiche</th>
+                            <th>Date évènement</th>
+                            <th>Date derniere évènement</th>
+                            <th colspan="1"></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+            <div/>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal  fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Importation excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'enctype': 'multipart/form-data'}}) }}
+                    {{ form_errors(form) }}
+                    {{ form_end(form) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">annuler</button>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	{% endblock %}
-	{% block scripts %}
-		 <script>
-		    $(document).ready(function () {
-		    // Setup - add a text input to each footer cell
-		    $('#myTable thead tr').clone(true).addClass('filters').appendTo('#myTable thead');
-		    var table = $('#myTable').DataTable({
-		        orderCellsTop: true,
-		        fixedHeader: true,
-		        initComplete: function () {
-		            var api = this.api();
-		            // For each column
-		            api.columns().eq(0).each(function (colIdx) {
-		                // Set the header cell to contain the input element
-		                var cell = $('.filters th').eq($(api.column(colIdx).header()).index());
-		                var title = $(cell).text();
-		                $(cell).html('<input type="text" placeholder="' + title + '" />');
-		                // On every keypress in this input
-		                $('input', $('.filters th').eq($(api.column(colIdx).header()).index()))
-		                    .off('keyup change')
-		                    .on('change', function (e) {
-		                        // Get the search value
-		                        $(this).attr('title', $(this).val());
-		                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-		
-		                        // Search the column for that value
-		                        api.column(colIdx)
-		                            .search(this.value != '' ? regexr.replace('{search}', '(((' + this.value + ')))') : '', this.value != '', this.value == '')
-		                            .draw();
-		                    });
-		            });
-		        },
-		    });
-		});
-		</script>
-	{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% include 'datatables/datatable.html.twig' %}
+{% endblock %}

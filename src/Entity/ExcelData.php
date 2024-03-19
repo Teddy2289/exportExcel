@@ -17,15 +17,15 @@ class ExcelData
     private ?int $id = null;
 
     #[ORM\Column(length: 128)]
-    #[Assert\Length(min: 9,minMessage: "Le compte compte Affaire au moins {{ limit }} caractères.")]
+    #[Assert\Length(min: 5,minMessage: "Le compte compte Affaire au moins {{ limit }} caractères.")]
     private ?string $compteAffaire = null;
 
     #[ORM\Column(length: 128)]
-    #[Assert\Length(min: 9,minMessage: "Le compte évènement (Veh) au moins {{ limit }} caractères.")]
+    #[Assert\Length(min: 5,minMessage: "Le compte évènement (Veh) au moins {{ limit }} caractères.")]
     private ?string $compteEvenement = null;
 
     #[ORM\Column(length: 128)]
-    #[Assert\Length(min: 9,minMessage: "Le compte dernier événement doit contenir au moins {{ limit }} caractères.")]
+    #[Assert\Length(min: 5,minMessage: "Le compte dernier événement doit contenir au moins {{ limit }} caractères.")]
     private ?string $compteDernierEvenement = null;
 
     #[ORM\Column]

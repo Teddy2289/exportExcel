@@ -1,0 +1,216 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 18 mars 2024 à 18:13
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.1.17
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `clienttest`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `doctrine_migration_versions`
+--
+
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `doctrine_migration_versions`
+--
+
+INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
+('DoctrineMigrations\\Version20240315060923', '2024-03-15 06:09:55', 201),
+('DoctrineMigrations\\Version20240316063153', '2024-03-16 06:32:05', 60);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `excel_data`
+--
+
+CREATE TABLE `excel_data` (
+  `id` int(11) NOT NULL,
+  `compte_affaire` varchar(128) NOT NULL,
+  `compte_evenement` varchar(128) NOT NULL,
+  `compte_dernier_evenement` varchar(128) NOT NULL,
+  `numero_fiche` int(11) NOT NULL,
+  `civilite` varchar(128) DEFAULT NULL,
+  `proprietaire_vehicule` varchar(255) DEFAULT NULL,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) DEFAULT NULL,
+  `numero_et_nom_voie` varchar(255) NOT NULL,
+  `complement_adresse1` varchar(255) DEFAULT NULL,
+  `code_postal` int(11) NOT NULL,
+  `ville` varchar(255) NOT NULL,
+  `telephone_domicile` int(11) DEFAULT NULL,
+  `telephone_portable` int(11) DEFAULT NULL,
+  `telephone_job` int(11) DEFAULT NULL,
+  `email_p1` varchar(255) DEFAULT NULL,
+  `date_mise_circulation` date DEFAULT NULL,
+  `date_achat` date DEFAULT NULL,
+  `date_dernier_evenement` date NOT NULL,
+  `marque` varchar(255) NOT NULL,
+  `modele` varchar(255) DEFAULT NULL,
+  `version` varchar(255) DEFAULT NULL,
+  `vin` varchar(255) NOT NULL,
+  `immatriculation` varchar(255) DEFAULT NULL,
+  `type_prospect` varchar(255) NOT NULL,
+  `kilometrage` varchar(255) DEFAULT NULL,
+  `energie` varchar(255) DEFAULT NULL,
+  `vendeur_vn` varchar(255) DEFAULT NULL,
+  `vendeur_vo` varchar(255) DEFAULT NULL,
+  `commentaire_facture` varchar(255) DEFAULT NULL,
+  `type_vnvo` varchar(255) DEFAULT NULL,
+  `numero_dossier_vnvo` varchar(255) DEFAULT NULL,
+  `intermadiare_vente_vn` varchar(255) DEFAULT NULL,
+  `date_evenement` date NOT NULL,
+  `origine_evenement` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `excel_data`
+--
+
+INSERT INTO `excel_data` (`id`, `compte_affaire`, `compte_evenement`, `compte_dernier_evenement`, `numero_fiche`, `civilite`, `proprietaire_vehicule`, `nom`, `prenom`, `numero_et_nom_voie`, `complement_adresse1`, `code_postal`, `ville`, `telephone_domicile`, `telephone_portable`, `telephone_job`, `email_p1`, `date_mise_circulation`, `date_achat`, `date_dernier_evenement`, `marque`, `modele`, `version`, `vin`, `immatriculation`, `type_prospect`, `kilometrage`, `energie`, `vendeur_vn`, `vendeur_vo`, `commentaire_facture`, `type_vnvo`, `numero_dossier_vnvo`, `intermadiare_vente_vn`, `date_evenement`, `origine_evenement`) VALUES
+(1, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYCOU', 7246, 'Mr', '', 'AZIZA', 'JULIEN', '1BIS RUE CREUSE', '', 77120, 'MAROLLES EN BRIE', 0, 624536655, 0, 'JULIEN.AZIZA@ORANGE.FR', '2015-09-29', '2015-09-29', '2021-04-14', 'HYUNDAI', NULL, '1.7 CRDI 115ch Creative 2WD', 'TMAJ3815AGJ009703', 'DW-750-CH', 'PARTICULIER', '139924', 'DIESEL', '', '', 'OPX', 'VN', '', '', '2021-04-14', 'Atelier'),
+(2, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 11286, '', 'ALIPIO TEIXEIRA B&TP', 'ALIPIO TEIXEIRA B&TP', '', '18 RUE DES CERISIERS', '', 60290, 'LAIGNEVILLE', 0, 662302010, 0, 'ALIPIOTEIXEIRA@YAHOO.FR', '2022-02-11', '2022-02-11', '2022-02-28', 'HYUNDAI', NULL, 'TUCSON NG CRDI 136 DCT 48V NLINE EXE TO', 'TMAJB81AGMJ127866', 'GE-630-QL', 'SOCIETE', '10', 'DIESEL', 'HEDIN LEA', '', '', 'VN', 'VN301519', '', '2022-02-28', 'Atelier'),
+(3, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYCOU', 1000, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '85 87 AVENUE DU GENERAL DE GAULLE', '', 94000, 'CRETEIL', 680777385, 672162143, 0, '', '2021-05-19', '2021-04-30', '2022-03-30', 'HYUNDAI', NULL, 'TUCSON NG HYBRID 230 CREATIVE', 'TMAJD811BMJ027162', 'FZ-434-HT', 'SOCIETE', '30244', 'HYBRIDE', 'BROSSARD JULIEN', '', 'OPX', 'VN', '', '', '2021-09-28', 'Atelier'),
+(4, 'LABOHYMEA', 'GIDAHYBEA', 'GIDAHYBEA', 9393, 'Mme', 'ANSEL', 'ANSEL', 'MARIE CHRISTINE', '2 ROUTE DE FORMERIE', '', 60220, 'BOUVRESSE', 0, 677950397, 0, '', '2019-07-16', NULL, '2022-03-01', 'HYUNDAI', NULL, '', 'TMAJ3817GKJ885874', 'FH-945-WZ', 'PARTICULIER', '43095', '', '', '', '', '', '', '', '2021-05-04', 'Atelier'),
+(5, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYCOU', 6925, '', 'ARVAL', 'ARVAL', '', '111 RUE DE REUILLY', '', 75012, 'PARIS-12E__ARRONDISSEMENT', 0, 788190227, 0, '', '2021-03-01', NULL, '2022-03-02', 'HYUNDAI', NULL, '', 'TMAJC81AGMJ009537', 'FX-389-MZ', 'PARTICULIER', '45401', '', '', '', 'AD BLUE', '', '', '', '2022-03-02', 'Atelier'),
+(6, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYCOU', 10781, '', 'AOUANA', 'AOUANA', 'YANIS', '7 RUE DE JUSSIEU', '', 77520, 'MONTIGNY LENCOUP', 0, 698942487, 0, 'yanisaouana@yahoo.fr', '2019-04-04', NULL, '2022-03-02', 'HYUNDAI', NULL, '', 'KMHK581GFKU027670', 'FF-499-EQ', 'PARTICULIER', '23919', '', '', '', 'MAJ GPS', '', '', '', '2021-10-25', 'Atelier'),
+(7, 'LABOHYMEA', 'GIDAHYBUS', 'VNVOHYBUS', 11534, '', '', 'ASCIER', '', '11 RUE CHARLES CORDIER', '', 77164, 'FERRIERES', 160436116, 0, 0, 'COMPTA@ASCIER.FR', '2018-09-27', '2022-02-23', '2022-03-04', 'PEUGEOT', NULL, 'PREMIUM PACK STANDARD BLUE  HDI 75 BVM5', 'VF37BBHW6JJ771713', 'FA-307-SB', 'SOCIETE', '35029', 'DIESEL', '', '', 'PREPA VO', 'VO', 'VO900402', '', '2022-03-02', 'Atelier'),
+(8, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 1459, 'Mr', 'ATTALI', 'ATTALI', 'WILLIAM', '19 RUE PIERRE DE NAVARRE', '', 77100, 'MEAUX', 0, 633584700, 0, 'william.attali@gmail.com', '2022-03-02', '2022-02-25', '2022-03-04', 'HYUNDAI', NULL, 'SANTA FE FL HEV 230 BVA6 INTUITIVE.', 'KMHS2811BNU026983', 'GE-814-ZL', 'PARTICULIER', '6', 'PLUG-IN', 'AUGEY PATRICK', '', '', 'VN', 'VN003696', '', '2022-03-04', 'Atelier'),
+(9, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 11428, 'Mr', 'ANDRIEUX', 'ANDRIEUX', 'KEVIN', '70 RUE EMILE ZOLA', '', 77124, 'CREGY LES MEAUX', 0, 626744790, 0, 'KEVINANDRIEUX1989@GMAIL.COM', '2022-03-09', '2022-03-03', '2022-03-14', 'HYUNDAI', NULL, 'I20 NG 1.2 84 INTUITIVE', 'NLHBN51HANZ144399', 'GF-344-CC', 'PARTICULIER', '6', 'ESSENCE', 'AUGEY PATRICK', '', '', 'VN', 'VN003674', '', '2022-03-14', 'Atelier'),
+(10, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 11621, '', 'ATLAS AUTO', 'ATLAS AUTO', '', '', '', 77100, 'MEAUX', 0, 0, 0, '', '2019-06-17', NULL, '2022-03-14', 'HYUNDAI', NULL, '', 'KMHC751HFKU046772', 'FH-810-AC', 'PARTICULIER', '24985', '', '', '', '', '', '', '', '2022-03-14', 'Atelier'),
+(11, 'LABOHYMEA', 'GIDAHYBEA', 'GIDAHYMAX', 7526, 'Mr', 'ADEM', 'ADEM', 'LOUNES', '39 RUE FRANCOIS VILLON', '', 95820, 'BRUYERES SUR OISE', 0, 626422683, 0, 'ademlounes@gmail.com', '2020-06-22', '2020-06-22', '2022-03-16', 'HYUNDAI', NULL, 'TUCSON A20 CRDI 115 48V CREA', 'TMAJ3817ALJ082238', 'FQ-102-RY', 'PARTICULIER', '10147', 'DIESEL', 'VILLAIN URSULLA', '', '', 'VN', 'VN500204', '', '2022-03-01', 'Atelier'),
+(12, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', NULL, '2022-02-24', '2022-03-17', 'HYUNDAI', NULL, 'KONA HYB BUSINESS', 'KMHK381EGNU081404', '', 'SOCIETE', '10', 'HYBRIDE', 'MIROGLIO CLARISSE', '', 'PLAQUE', 'VN', 'VN002881', '', '2022-03-17', 'Atelier'),
+(13, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', NULL, '2022-02-25', '2022-03-17', 'HYUNDAI', NULL, 'KONA HYBRID FL BUSINESS', 'KMHK381EGNU083078', '', 'SOCIETE', '10', 'HYBRIDE', '', '', 'PLAQUE', 'VN', 'VN002881', '', '2022-03-17', 'Atelier'),
+(14, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 9498, '', 'ALPHABET', 'ALPHABET', '', 'TSA 90001', '', 78182, 'ST QUENTIN', 0, 778346392, 0, '', '2021-03-22', '2020-09-26', '2022-03-17', 'HYUNDAI', NULL, 'CRDI 136 DCT7 48V NLINE EXECUTIVE', 'TMAJ3817GLJ132557', 'FX-845-ZS', 'SOCIETE', '33061', 'DIESEL', 'AMALOU KEVIN', '', 'MALR', 'VN', 'VN400589', '', '2021-04-21', 'Atelier'),
+(15, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 11667, '', 'ANTONY', 'ANTONY', 'FRANCOIS-XAVIER', '12 RUE DES TOURNELLES', '', 77174, 'VILLENEUVE SAINT DENIS', 0, 615471798, 0, '', '2018-06-05', NULL, '2022-03-17', 'HYUNDAI', NULL, '', 'KMHC751DGJU081495', 'EX-840-XQ', 'PARTICULIER', '35709', '', '', '', 'REV 60 000 KM ET 48 MOIS', '', '', '', '2022-03-17', 'Atelier'),
+(16, 'LABOHYMEA', 'GIDAHYBEA', 'VNVOHYMEA', 11664, 'Mme', 'ADELON', 'ADELON', 'CATHY', '14 CHEMIN PARE', '', 77580, 'COULOMMES', 0, 626624754, 0, 'KOULIE@HOTMAIL.FR', '2021-06-25', '2022-03-18', '2022-03-18', 'HYUNDAI', NULL, 'I20 NG TGDI 100DCT 48V NLINE+NAV+BITON', 'NLHBR51GGNZ053534', 'GA-304-GQ', 'PARTICULIER', '10', 'ESSENCE', 'AUGEY PATRICK', '', 'PREPA VD', 'VN', 'VN003743', '', '2021-07-28', 'Atelier'),
+(17, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 9883, 'Mme', 'ALLIET', 'ALLIET', 'TIFFANY', '235 RUE DES PETITS PRES', '', 60250, 'HEILLES', 614071011, 614071011, 0, 'alliettiffany@gmail.com', '2018-11-30', '2021-05-21', '2022-03-18', 'HYUNDAI', NULL, 'CRDI 136 CDT-7 CREA RDS', 'TMAJ3817GKJ738781', 'FC-301-EB', 'PARTICULIER', '51422', 'DIESEL', '', '', '', 'VO', 'VO080681', '', '2020-08-25', 'Atelier'),
+(18, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 11580, 'Ste', 'ASMH', 'ASMH', '', 'RUE DU PONT DE SAINT LEU', '', 60270, 'GOUVIEUX', 0, 658460269, 0, 'annesophiebichut@gmail.com', '2019-11-26', NULL, '2022-03-18', 'HYUNDAI', NULL, 'N LINE', 'TMAJ3817GLJ019165', 'FP-736-FH', 'PARTICULIER', '33005', '', '', '', '', '', '', '', '2022-03-18', 'Atelier'),
+(19, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', '2022-03-14', '2022-03-18', '2022-03-22', 'HYUNDAI', NULL, 'TUCSON NG PHEV 265 HTRAC EXE', 'TMAJE812DNJ080026', 'GF-536-EF', 'SOCIETE', '10', 'PLUG-IN', '', '', 'PREPA VN', 'VN', 'VN002881', '', '2022-03-22', 'Atelier'),
+(20, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 11710, 'Mr', 'ASSELINEAU', 'ASSELINEAU', 'FREDERIC', '31 AVENUE DE LA REPUBLIQUE', '', 77100, 'MEAUX', 0, 626496372, 0, '', '2021-02-10', NULL, '2022-03-22', 'HYUNDAI', NULL, '', 'TMAJE811BMJ007740', 'FX-340-BN', 'PARTICULIER', '22000', '', '', '', '', '', '', '', '2022-03-22', 'Atelier'),
+(21, 'LABOHYMEA', 'GIDACOU', 'GIDAHYCOU', 9178, 'Mr', NULL, 'ALAVOINE', 'PATRICK', '14 RUE DE LA GARENNE', NULL, 77320, 'CERNEUX', 0, 649624031, 0, 'PATRICKALAVOINE77@HOTMAIL.FR', '2017-03-20', '2020-12-31', '2022-03-23', 'HYUNDAI', NULL, 'CRDI 141 DCT7 EDITION LOUNGE', 'TMAJ3815GHJ382366', 'EK-198-XV', 'PARTICULIER', '74187', 'DIESEL', NULL, 'FERNANDES ANTHONY', NULL, 'VO', 'VO061609', NULL, '2019-06-04', 'Atelier'),
+(22, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 6345, 'Mr', 'ANCART', 'ANCART', 'BENJAMIN', '13 RUE JEAN MOULIN', '', 77120, 'COULOMMIERS', 0, 682246586, 0, 'benjamin.ancart@gmail.com', '2022-02-28', '2022-02-25', '2022-03-23', 'HYUNDAI', NULL, 'HYB 230 EXECUTIVE', 'TMAJE811BNJ078473', 'GE-078-YW', 'PARTICULIER', '345', 'HYBRIDE', 'AVILES JEROME', '', '', 'VN', 'VN003435', '', '2022-03-23', 'Atelier'),
+(23, 'LABOHYMEA', 'VNVOHYMEA', 'VNVOHYMEA', 11668, '', 'ASS MAINTIEN DOMICILE PERSONNE', 'ASS MAINTIEN DOMICILE PERSONNE', '', '98 AVENUE DE FONTAINEBLEAU', '', 77310, 'SAINT FARGEAU PONTHIERRY', 2147483647, 0, 0, 'APMAD@ORANGE.FR', NULL, '2022-03-25', '2022-03-25', 'HYUNDAI', NULL, 'I10 1.0 67 ECO 4P INTUITIVE', 'NLHDN51AANZ114042', '', 'SOCIETE', '', 'ESSENCE', 'FERNANDES ANTHONY', '', '', 'VN', 'VN003727', '', '2022-03-25', 'Véhicule neuf'),
+(24, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 11752, '', 'ALTO INGENIERIE', 'ALTO INGENIERIE', '', '1 DU GUE LANGLOIS', '', 77600, 'BUSSY SAINT GEORGES', 0, 635078680, 0, '', '2021-12-01', NULL, '2022-03-28', 'HYUNDAI', NULL, '', 'TMAJC811BMJ061510', 'GD-335-GX', 'PARTICULIER', '4509', '', '', '', 'CAMPAGNE', '', '', '', '2022-03-28', 'Atelier'),
+(25, 'LABOHYMEA', 'GIDACARPRO', 'GIDAHYMEA', 11628, 'Mme', 'AKAKPO', 'AKAKPO', 'DONANON', '8 AVENUE LEON BLUM', '', 93330, 'NEUILLY SUR MARNE', 0, 621208476, 0, 'MARYSE.TODOME@GMAIL.COM', '2021-02-17', '2022-03-16', '2022-03-29', 'SUZUKI', NULL, '1.2 DUALJET HYBRID 83CH PACK AUTO', 'JSAAZCA3S00408936', 'FX-311-EN', 'PARTICULIER', '3480', 'ESSENCE', '', '', 'REMISE EN ETAT V O', 'VO', 'VO061870', '', '2021-12-16', 'Atelier'),
+(26, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYMEA', 11722, 'Mr', 'ASANDULUI', 'ASANDULUI', 'CONSTANTIN', '31 RUE PIERRE MENDES FRANCE', '', 77100, 'NANTEUIL LES MEAUX', 0, 629432757, 0, 'TICA.ASANDULUI@GMAIL.COM', '2019-10-08', '2022-03-24', '2022-03-29', 'HYUNDAI', NULL, '1.6 CRDI 136 DCT-7 PREM  RDS', 'TMAJ3817GLJ992299', 'FK-827-RX', 'PARTICULIER', '19774', 'DIESEL', '', '', 'NUL', 'VO', 'VO061964', '', '2021-06-07', 'Atelier'),
+(27, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2020-08-03', NULL, '2022-03-29', 'HYUNDAI', NULL, '', 'KMHC751DGLU217281', 'FR-074-WS', 'SOCIETE', '20160', '', '', '', '', '', '', '', '2022-03-29', 'Atelier'),
+(28, 'LABOHYMEA', 'VNVOHYBUS', 'VNVOHYBUS', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2006-04-12', '2022-03-29', '2022-03-29', 'TOYOTA', NULL, 'aygo 1.0vvt i 68ch', 'JTDKG18C50N049285', 'CZ-631-LY', 'SOCIETE', '173400', 'ESSENCE', '', '', '', 'VO', '', '', '2022-03-24', 'Véhicule d\'occasion'),
+(29, 'LABOHYMEA', 'VNVOHYBUS', 'VNVOHYBUS', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2010-04-13', '2022-03-29', '2022-03-29', 'PEUGEOT', NULL, '1.6 HDi 16v 110CH fap BMP6 BLUE LION PREMIUM Pack', 'VF30U9HZHAS097492', 'AQ-463-FG', 'SOCIETE', '202654', 'DIESEL', '', '', '', 'VO', '', '', '2022-03-22', 'Véhicule d\'occasion'),
+(30, 'LABOHYMEA', 'VNVOHYBUS', 'VNVOHYBUS', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2011-10-19', '2022-03-29', '2022-03-29', 'AUDI', NULL, 'V6 2.7 TDI 190DPF AMBITION LUXE MULTIRONIC A', 'WAUZZZ8K6CA058214', 'BW-417-NN', 'SOCIETE', '103500', 'DIESEL', '', '', '', 'VO', '', '', '2022-03-15', 'Véhicule d\'occasion'),
+(31, 'LABOHYMEA', 'VNVOHYBUS', 'VNVOHYBUS', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2014-04-08', '2022-03-29', '2022-03-29', 'HYUNDAI', NULL, 'i 30 1.6 crdi 128ch', 'TMAD351UAEJ127657', 'DE-404-SV', 'SOCIETE', '125458', 'DIESEL', '', '', '', 'VO', '', '', '2022-03-24', 'Véhicule d\'occasion'),
+(32, 'LABOHYMEA', 'GIDAHYCOU', 'VNVOHYMEA', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2012-02-16', '2022-03-30', '2022-03-30', 'HYUNDAI', NULL, '1.2 PACK INVENTIVE', 'NLHBA51BACZ099364', 'CB-578-NQ', 'SOCIETE', '154759', 'ESSENCE', '', '', '', 'VO', '', '', '2020-01-06', 'Atelier'),
+(33, 'LABOHYMEA', 'GIDAHYMEA', 'VNVOHYMEA', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2013-08-28', '2022-03-30', '2022-03-30', 'HYUNDAI', NULL, '1.6 CRDI 110 PACK SENSATION BLUE DRIVE 5P', 'TMAD351UAEJ110847', 'CY-705-CC', 'SOCIETE', '139926', 'DIESEL', '', '', 'remise', 'VO', '', '', '2018-01-24', 'Atelier'),
+(34, 'LABOHYMEA', 'VNVOHYMEA', 'VNVOHYMEA', 1362, 'Ste', '', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2011-04-05', '2022-03-30', '2022-03-30', 'PEUGEOT', NULL, '1.6 HDi112 FAP Allure 7pl', 'VF3OE9HR8BS104842', 'BL-105-NP', 'SOCIETE', '179318', 'DIESEL', '', '', '', 'VO', '', '', '2022-03-22', 'Véhicule d\'occasion'),
+(35, 'LABOHYMEA', 'VNVOHYMEA', 'VNVOHYMEA', 1362, 'Ste', 'AUTOS LINE', 'AUTOS LINE', '', '255 RN6', '', 77240, 'VERT SAINT DENIS', 160636319, 0, 0, '', '2010-04-14', '2022-03-30', '2022-03-30', 'PEUGEOT', NULL, '1.6 hdi 110 fap premium pack', 'VF34C9HZC9S199531', 'AQ-781-HR', 'SOCIETE', '214510', 'DIESEL', '', '', '', 'VO', '', '', '2022-01-17', 'Véhicule d\'occasion'),
+(36, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 10570, '', 'A.S.R.A.', 'A.S.R.A.', '', '80 IMPASSE BOIS SAVONNETTE', '', 97232, 'LE LAMENTIN', 0, 613433465, 0, 'ka360pro@gmail.com', '2022-03-25', '2022-02-21', '2022-04-04', 'HYUNDAI', NULL, 'TUCSON NG PHEV 265 HTRAC NLINE EX+TO', 'TMAJB812DNJ079208', 'GF-357-KM', 'SOCIETE', '9', 'PLUG-IN', 'LAURENT SEBASTIEN', '', '', 'VN', 'VN301386', '', '2022-04-04', 'Atelier'),
+(37, 'LABOHYMEA', 'GIDACOU', 'GIDAHYCOU', 2577, '', 'AUDEMAR', 'AUDEMAR', 'CEDRIC', '3 AVENUE DU GENERAL DE GAULLE', '', 77440, 'LIZY SUR OURCQ', 0, 695204769, 0, '', '2011-12-29', NULL, '2022-04-05', 'HYUNDAI', NULL, '', 'TMAJU81VACJ231649', 'BZ-300-SR', 'PARTICULIER', '259122', '', '', '', '', '', '', '', '2021-05-17', 'Atelier'),
+(38, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 997, 'Ste', 'ARVAL', 'ARVAL', '', '1 RUE CHEMIN BLANC', '', 91160, 'LONGJUMEAU', 0, 752635442, 0, '', '2021-12-28', NULL, '2022-04-06', 'HYUNDAI', NULL, '', 'KMHK381EGNU077843', 'GD-323-WK', 'PARTICULIER', '2998', '', '', '', '', '', '', '', '2022-04-06', 'Atelier'),
+(39, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', '2022-02-21', '2022-02-24', '2022-04-07', 'HYUNDAI', NULL, 'TUCSON NG CRDI 136 DCT 48V BUSINESS', 'TMAJC81AGNJ164034', 'GE-375-VB', 'SOCIETE', '10', 'HYBRIDE', 'MIROGLIO CLARISSE', '', '', 'VN', 'VN002881', '', '2022-04-07', 'Magasin'),
+(40, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', '2022-03-02', '2022-02-18', '2022-04-07', 'HYUNDAI', NULL, 'TUCSON NG CRDI 136 DCT 48V BUSINESS', 'TMAJC81AGNJ163698', 'GE-562-ZW', 'SOCIETE', '10', 'HYBRIDE', 'MIROGLIO CLARISSE', '', 'PREPA VN', 'VN', 'VN002881', '', '2022-04-07', 'Atelier'),
+(41, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', NULL, '2022-03-31', '2022-04-08', 'HYUNDAI', NULL, 'KONA HYB BUSINESS', 'KMHK381EGNU088038', '', 'SOCIETE', '', 'HYBRIDE', 'MIROGLIO CLARISSE', '', '', 'VN', 'VN002881', '', '2022-04-08', 'Magasin'),
+(42, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', NULL, '2022-03-31', '2022-04-08', 'HYUNDAI', NULL, 'KONA HYB BUSINESS', 'KMHK381EGNU088039', '', 'SOCIETE', '', 'HYBRIDE', 'MIROGLIO CLARISSE', '', '', 'VN', 'VN002881', '', '2022-04-08', 'Magasin'),
+(43, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYCOU', 9218, 'Mme', 'ADIN', 'ADIN', 'JULIA', '2 RUE DE FLORE', '', 77124, 'CREGY LES MEAUX', 0, 695821538, 0, 'julanj@orange.fr', '2021-03-31', '2021-02-24', '2022-04-08', 'HYUNDAI', NULL, 'I10 NG 1.0 67 ECO 4P INITIA MY21', 'NLHDM51AAMZ059841', 'FY-262-GZ', 'PARTICULIER', '7012', 'ESSENCE', 'FERNANDES ANTHONY', '', '', 'VN', 'VN002950', '', '2021-03-26', 'Magasin'),
+(44, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 11862, 'Mr', 'AMKHAOU', 'AMKHAOU', 'TAHAR', '8 RUE JULES LOPARD', '', 77450, 'ESBLY', 0, 621970696, 0, '', '2017-05-11', NULL, '2022-04-08', 'HYUNDAI', NULL, '', 'KMHC751CGHU028166', 'EM-346-HY', 'PARTICULIER', '106840', '', '', '', 'rev 105000 kms', '', '', '', '2022-04-08', 'Atelier'),
+(45, 'LABOHYMEA', 'GIDACOU', 'GIDAHYCOU', 4939, '', 'AUTOMATIC SYSTEMS', 'AUTOMATIC SYSTEMS', '', '22 RUE DU 8 MAI 1945', '', 95340, 'PERSAN', 0, 613214171, 0, '', '2018-02-28', NULL, '2022-04-11', 'HYUNDAI', NULL, '', 'TMAH3517AJJ061192', 'EV-728-KD', 'PARTICULIER', '157119', '', '', '', 'CHOC', '', '', '', '2020-01-28', 'Atelier'),
+(46, 'LABOHYMEA', 'GIDAHYCOU', 'GIDAHYMEA', 10587, '', 'APTIV HOLDING FRANCE', 'APTIV HOLDING FRANCE', '', 'RUE DES LONGS REAGES', '', 28230, 'EPERNON', 0, 684367621, 0, 'henri.lefevre@aptiv.com', '2021-01-15', NULL, '2022-04-13', 'HYUNDAI', NULL, '', 'TMAJE811BMJ006127', 'FW-299-MV', 'PARTICULIER', '19398', '', '', '', 'nul', '', '', '', '2021-11-18', 'Atelier'),
+(47, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2021-06-10', NULL, '2022-04-13', 'HYUNDAI', NULL, '', 'TMAJE812DNJ033343', 'FZ-279-XC', 'SOCIETE', '17217', '', '', '', '', '', '', '', '2022-04-11', 'Atelier'),
+(48, 'LABOHYMEA', 'GIDACARPRO', 'GIDAHYCOU', 11554, 'Mr', '', 'AGOUDJIL', 'HAMID', '2 B RUE ST AIGNAN', '', 77171, 'LECHELLE', 0, 616500734, 0, 'h.agoudjil02@yahoo.fr', '2020-10-13', '2022-02-25', '2022-04-15', 'HYUNDAI', NULL, 'ioniq fl hyb creative', 'KMHC851CGLU202194', 'FT-476-JD', 'PARTICULIER', '26644', 'HYBRIDE', '', '', 'remise en etat v o', 'VO', 'VO061843', '', '2022-03-16', 'Atelier'),
+(49, 'LABOHYMEA', 'GIDACOU', 'GIDAHYCOU', 2577, '', 'AUDEMAR', 'AUDEMAR', 'CEDRIC', '3 AVENUE DU GENERAL DE GAULLE', '', 77440, 'LIZY SUR OURCQ', 0, 695204769, 0, '', '2019-08-28', NULL, '2022-04-15', 'HYUNDAI', NULL, '', 'KMHS381BDLU199918', 'FJ-646-SK', 'PARTICULIER', '61861', '', '', '', 'carro', '', '', '', '2022-04-15', 'Atelier'),
+(50, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 5542, 'Gge', 'ABCIS PICARDIE', 'ABCIS PICARDIE', '', '62 RUE DES DROITS DE L HOMME', '', 60740, 'SAINT MAXIMIN', 344646060, 0, 0, 'elodie.duretz@emilfrey.fr', '2017-06-16', NULL, '2022-04-15', 'HYUNDAI', NULL, '', 'TMAJ3815AJJ474031', 'JJ474031', 'SOCIETE', '', '', '', '', '', '', '', '', '2022-04-15', 'Atelier'),
+(51, 'LABOHYMEA', 'GIDAHYBEA', 'GIDAHYBEA', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2020-09-22', '2020-10-02', '2022-04-20', 'HYUNDAI', NULL, 'CRDI 136 DCT-7 48V NLINE EDITION + TO', 'TMAJ3817GLJ131994', 'FS-836-WN', 'SOCIETE', '60921', 'DIESEL', 'VILLAIN URSULLA', '', 'MALR', 'VN', '', '', '2020-09-17', 'Atelier'),
+(52, 'LABOHYMEA', 'GIDACOU', 'GIDACOU', 11421, '', 'AFMTBT', 'AFMTBT', '', '1 RUE TRISTAN TZARA', 'TZARA', 75018, 'PARIS-18E__ARRONDISSEMENT', 0, 675333649, 0, 'PRESTIAJO@YAHOO.FR', '2018-01-25', '2022-02-24', '2022-04-21', 'HYUNDAI', NULL, 'MY 18 HYBRID INTUITIVE', 'KMHC751CGJU070624', 'ET-113-PG', 'SOCIETE', '23315', 'DIESEL', '', '', '', 'VO', 'VO900403', '', '2022-04-20', 'Atelier'),
+(53, 'LABOHYMEA', 'VNVOHYMAX', 'VNVOHYMAX', 3536, 'Ste', 'AUTO LINE', 'AUTO LINE', '', '255 ROUTE DEPARTEMENTALE 306', '', 77240, 'VERT SAINT DENIS', 0, 0, 0, '', '2010-07-27', '2022-04-21', '2022-04-21', 'VOLKSWAGEN', NULL, '2.0 TDI 140CH FAP SPORT & STYLE 4X2', 'WVGZZZ5NZBW015078', 'AX-658-ML', 'PARTICULIER', '163601', 'DIESEL', '', '', '', 'VO', 'VO061007', '', '2022-03-30', 'Véhicule d\'occasion'),
+(54, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2021-10-08', NULL, '2022-04-22', 'HYUNDAI', NULL, '', 'TMAJE812DNJ045741', 'GC-937-GP', 'SOCIETE', '17545', '', '', '', '', '', '', '', '2022-04-22', 'Atelier'),
+(55, 'LABOHYMEA', 'GIDAHYMAX', 'GIDAHYMAX', 11591, '', 'ASSISTANCE SERRURERIE ANTONIO', 'ASSISTANCE SERRURERIE ANTONIO', '', '36 RUE LEON BOUFFLET', '', 60740, 'SAINT MAXIMIN', 0, 603811973, 0, 'asantoniopalma@yahoo.fr', '2022-04-19', '2022-04-19', '2022-04-22', 'HYUNDAI', NULL, 'KONA ELECRTIC FL 64 KWH INTUITIVE PACK', 'TMAK281GFNJ056897', 'GF-008-WT', 'SOCIETE', '2', 'ELECTRIQUE', 'LAURENT SEBASTIEN', '', '', 'VN', 'VN301551', '', '2022-04-22', 'Atelier'),
+(56, 'LABOHYMEA', 'GIDAHYMEA', 'GIDAHYMEA', 5831, '', 'AUTO SAINT MARD', 'AUTO SAINT MARD', '', '2 ALLEE FONTAINE DES TOURNELLES', '', 77230, 'SAINT MARD', 164025818, 0, 0, 'ASMSL.77@wanadoo.fr', '2020-01-28', NULL, '2022-04-22', 'HYUNDAI', NULL, '', 'KMHK381EGLU009044', 'FP-551-CE', 'SOCIETE', '34906', '', '', '', '', '', '', '', '2022-04-22', 'Atelier'),
+(57, 'LABOHYMEA', 'GIDAHYMEA', 'VNVOHYMEA', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2022-04-13', '2022-04-22', '2022-04-22', 'HYUNDAI', NULL, 'TUCSON NG HYBRID 230 BUSINESS+SS', 'TMAJC811BNJ085608', 'GF-562-VG', 'SOCIETE', '6', 'HYBRIDE', 'AUGEY PATRICK', '', '', 'VN', '', '', '2022-04-20', 'Atelier'),
+(58, 'LABOHYMEA', 'GIDAHYBEA', 'GIDAHYBEA', 7648, 'Ste', 'ARVAL SERVICE LEASE', 'ARVAL SERVICE LEASE', '', '22 RUE DES 2 GARES', '', 92564, 'RUEIL MALMAISON CEDEX', 0, 0, 0, '', '2021-06-01', NULL, '2022-04-25', 'HYUNDAI', NULL, '', 'TMAJC81AGMJ031770', 'FZ-936-QX', 'SOCIETE', '34012', '', '', '', '', '', '', '', '2022-04-25', 'Atelier'),
+(59, 'LABOHYMEA', 'GIDAHYBUS', 'GIDAHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', '2022-04-25', '2022-03-29', '2022-04-25', 'HYUNDAI', NULL, 'IONIQ 5 73KWH INTUITIVE', 'KMHKM81AFNU044549', '*1**', 'SOCIETE', '1', 'ELECTRIQUE', 'MIROGLIO CLARISSE', '', 'PREPA VN', 'VN', 'VN002881', '', '2022-04-25', 'Atelier'),
+(60, 'LABOHYMEA', 'VNVOHYBUS', 'VNVOHYBUS', 8195, '', 'ATHLON CAR LEASE', 'ATHLON CAR LEASE', '', '53 AVENUE JEAN JAURES', '', 93350, 'LE BOURGET', 0, 674441722, 0, 'georges.dossantos@gmail.com', NULL, '2022-04-25', '2022-04-25', 'HYUNDAI', NULL, 'KONA HYBRID FL BUSINESS', 'KMHK381EGNU088738', '', 'SOCIETE', '', 'HYBRIDE', 'MIROGLIO CLARISSE', '', '', 'VN', 'VN002881', '', '2022-04-25', 'Véhicule neuf'),
+(61, 'LABOHYMEA', '', '', 0, '', '', '', '', '', '', 0, '', 0, 0, 0, '', NULL, NULL, '2022-04-25', '', NULL, '', '', '', '', '', '', '', '', '', '', '', '', '2022-04-25', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `messenger_messages`
+--
+
+CREATE TABLE `messenger_messages` (
+  `id` bigint(20) NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `doctrine_migration_versions`
+--
+ALTER TABLE `doctrine_migration_versions`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `excel_data`
+--
+ALTER TABLE `excel_data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `excel_data`
+--
+ALTER TABLE `excel_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT pour la table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
